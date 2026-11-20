@@ -165,7 +165,7 @@ delay_s,dt_s,uMax_pct
 The **Copy setup link** control builds a shareable URL containing the initial scenario and all plant settings. Example:
 
 ```text
-https://YOURNAME.github.io/Heater_Control_Lab/?task=load&K=0.65&tau=25&delay=6&dt=0.2&ambient=25&uMax=100&setpoint=55
+https://auralius.github.io/Heater_Control_Lab/?task=load&K=0.65&tau=25&delay=6&dt=0.2&ambient=25&uMax=100&setpoint=55
 ```
 
 The URL initializes the experiment but does not lock it: students can still change settings. The setpoint field can be changed live in the fixed-setpoint scenario without restarting the current experiment.
