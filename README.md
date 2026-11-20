@@ -24,15 +24,15 @@ To deploy: upload the files to the root of a GitHub repository and enable **Sett
 
 The simulator models heater power `u(t)` (%) and measured temperature `T(t)` (°C):
 
-\[
+$$
 \tau\frac{dT}{dt} = -(T-T_a) + K\,u(t-L)+d(t).
-\]
+$$
 
 For a zero initial deviation, with zero disturbance, the transfer function is
 
-\[
+$$
 \frac{T(s)-T_a/s}{U(s)} = \frac{K e^{-Ls}}{\tau s+1}.
-\]
+$$
 
 Here:
 
@@ -50,12 +50,12 @@ The physical command is clamped to **0–`uMax`** percent. The heater cannot act
 
 The measured temperature remains unchanged until an earlier heater command has emerged from the delay element. For example, with `K=0.65 °C/%`, `tau=25 s`, `L=6 s`, `ambient=25 °C`, and a sustained 50% heater command starting at `t=0`:
 
-\[
+$$
 T(t)=\begin{cases}
 25, & t\le 6,\\
 25+32.5(1-e^{-(t-6)/25}), & t>6.
 \end{cases}
-\]
+$$
 
 ## Exact first-order update with an exact transport delay
 
@@ -63,10 +63,10 @@ The controller is called at the selected sample time `h = params.dt` (0.1, 0.2, 
 
 For each interval during which the delayed heater command `u_d` is constant, the simulator uses the **exact first-order solution**:
 
-\[
+$$
 T_{next}=T_{eq}+(T_{current}-T_{eq})e^{-\Delta t/\tau},\qquad
 T_{eq}=T_a + K u_d + d.
-\]
+$$
 
 Transport delay is **not rounded** to a multiple of the sampling period. If `L=n h+r`, with `0≤r<h`, then during a sampling interval the delayed input is `u[k-n-1]` for the first `r` seconds and `u[k-n]` for the remaining `h-r` seconds. For `r=0`, only `u[k-n]` is used. Before the start of the simulation, the command history is zero. The simulator applies the exact thermal update once or twice per sample as needed. This is a discrete-time controller driving a first-order plant with ZOH input and pure transport delay, **not** a forward Euler approximation.
 
